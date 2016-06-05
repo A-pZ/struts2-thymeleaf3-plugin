@@ -73,9 +73,9 @@ If you changed this values, overwriting your configulation files , struts.xml or
     <constant name="struts.thymeleaf.cacheTtlMillis" value="3600000"/>
     <constant name="struts.thymeleaf.templateEngineName" value="default"/>
 
-## Spring support & type conversion handling
+## Spring support & type conversion error handling support.
 
-This plugin can provide accessibility for spring bean , and Struts2 type-conversion error handling support.
+This plugin can provide accessibility for spring bean , and Struts2 type-conversion-error handling support.
 
 ### How to use Spring Bean
 
@@ -96,7 +96,7 @@ Code example :
      xmlns:sth="http://serendip.thymeleaf">
      ...
      <input name="name" type="text" value=""
-      sth:value="${name}" sth:errorclass="field-error-background" />
+      sth:value="${name}" sth:errorclass="error-css" />
      ...
     </html>
 
