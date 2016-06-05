@@ -1,4 +1,4 @@
-# Struts Thymeleaf Plug-in
+# Struts2-Thymeleaf3-plugin
 
 This project is Struts2-plugin for use [Thymeleaf](http://www.thymeleaf.org) templating engine version 3.0.0-RELEASE.
 
