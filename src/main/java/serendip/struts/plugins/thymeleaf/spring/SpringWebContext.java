@@ -1,7 +1,7 @@
 /**
  * 
  */
-package serendip.struts.plugins.thymeleaf;
+package serendip.struts.plugins.thymeleaf.spring;
 
 import java.util.HashMap;
 import java.util.Locale;

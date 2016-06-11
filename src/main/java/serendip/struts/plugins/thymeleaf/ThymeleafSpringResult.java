@@ -37,6 +37,7 @@ import com.opensymphony.xwork2.Result;
 import com.opensymphony.xwork2.inject.Inject;
 
 import serendip.struts.plugins.thymeleaf.spi.TemplateEngineProvider;
+import serendip.struts.plugins.thymeleaf.spring.SpringWebContext;
 
 /**
  * Renders a Thymeleaf-Spring template as the result of invoking a Struts action.
