@@ -71,15 +71,17 @@ public class FieldErrorAttributeProcessor extends AbstractAttributeTagProcessor 
          */
         //final IStandardExpression expression = parser.parseExpression(context, attributeValue);
         
-        // bind class attribute value for field-error.
-        String fieldname = tag.getAttributeValue("name");
+        // get field name.
+        String fieldname = tag.getAttributeValue(null, "name");
+        
+        // get field value from struts2 ognl
+        Object parameterValue = getFieldValue(fieldname);
+        if ( parameterValue != null ) {
+        	structureHandler.setAttribute("value", HtmlEscape.escapeHtml5(parameterValue.toString()));
+        }
         if ( !hasFieldError(fieldname)) {
         	return;
         }
-        
-        // bind request parameter
-        String parameterValue = getFieldValue(fieldname);
-        structureHandler.setAttribute("value", HtmlEscape.escapeHtml5(parameterValue));
         
         // add field-error css class.
         IAttribute cssClass = tag.getAttribute("class");
@@ -121,15 +123,17 @@ public class FieldErrorAttributeProcessor extends AbstractAttributeTagProcessor 
 	 * @param fieldname fieldname
 	 * @return fieldvalue
 	 */
-	protected String getFieldValue(String fieldname) {
-		String[] value = (String[])ActionContext.getContext().getParameters().get(fieldname);
+	protected Object getFieldValue(String fieldname) {
+		ActionContext actionCtx = ActionContext.getContext();
+		ValueStack valueStack = actionCtx.getValueStack();
+		Object value = valueStack.findValue(fieldname, true);
 		
 		String overwriteValue = getOverwriteValue(fieldname);
 		
 		if ( overwriteValue != null ) {
 			return overwriteValue;
 		}
-		return value[0];
+		return value;
 	}
 	
 	protected String fieldErrorClass(IProcessableElementTag tag) {
@@ -152,8 +156,7 @@ public class FieldErrorAttributeProcessor extends AbstractAttributeTagProcessor 
 		ValueStack stack = ctx.getValueStack();
 		Map<Object ,Object> overrideMap = stack.getExprOverrides();
 		
-		
-		
+		// If convertion error has not, do nothing.
 		if ( overrideMap == null || overrideMap.isEmpty()) {
 			return null;
 		}

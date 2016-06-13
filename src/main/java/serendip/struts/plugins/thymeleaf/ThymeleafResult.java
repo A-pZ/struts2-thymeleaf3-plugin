@@ -15,9 +15,10 @@
  */
 package serendip.struts.plugins.thymeleaf;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ import org.thymeleaf.TemplateEngine;
 
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.LocaleProvider;
 import com.opensymphony.xwork2.Result;
 import com.opensymphony.xwork2.inject.Inject;
 
@@ -81,10 +83,15 @@ public class ThymeleafResult implements Result {
 		Object action = actionInvocation.getAction();
 		
 		// Action instance put to Thymeleaf context.
-		Map<String, Object> variables = bindStrutsContest(action);
+		Map<String, Object> variables = bindStrutsContext(action);
 		
-		StrutsContext context = new StrutsContext(request, response, servletContext, action);
-		context.setVariables(variables);
+		Locale locale = null;
+		if (action instanceof LocaleProvider) {
+			locale = (((LocaleProvider) action).getLocale());
+		}
+		
+		StrutsContext context = new StrutsContext(request, response, servletContext, locale, variables);
+		//context.setVariables(variables);
 		
 		response.setContentType("text/html");
 		response.setCharacterEncoding(defaultEncoding);
@@ -113,8 +120,8 @@ public class ThymeleafResult implements Result {
 	 *            Action instance
 	 * @return ContextMap
 	 */
-	Map<String, Object> bindStrutsContest(Object action) {
-		Map<String, Object> variables = new HashMap<String, Object>();
+	Map<String, Object> bindStrutsContext(Object action) {
+		Map<String, Object> variables = new ConcurrentHashMap<String, Object>();
 		variables.put(ACTION_VARIABLE_NAME, action);
 
 		if (action instanceof ActionSupport) {

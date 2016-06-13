@@ -60,9 +60,6 @@ public class SpringWebContext extends AbstractContext implements IWebContext {
         this.applicationContext = appctx;
     }
 
-    
-    
-
     @SuppressWarnings("unchecked")
     private static Map<String,Object> addSpringSpecificVariables(final Map<String, ?> variables, final ApplicationContext appctx) {
 
@@ -93,7 +90,6 @@ public class SpringWebContext extends AbstractContext implements IWebContext {
     public ApplicationContext getApplicationContext() {
         return this.applicationContext;
     }
-    
 	
 	@Override
 	public HttpServletRequest getRequest() {
