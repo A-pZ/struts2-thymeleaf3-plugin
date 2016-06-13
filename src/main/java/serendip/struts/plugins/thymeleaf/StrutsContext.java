@@ -15,14 +15,16 @@
  */
 package serendip.struts.plugins.thymeleaf;
 
+import java.util.Locale;
+import java.util.Map;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.thymeleaf.context.AbstractContext;
-
-import com.opensymphony.xwork2.LocaleProvider;
+import org.thymeleaf.context.IWebContext;
 
 /**
  * Extends the {@link org.thymeleaf.context.WebContext} to provide access to the
@@ -34,10 +36,9 @@ import com.opensymphony.xwork2.LocaleProvider;
  * {@link javax.servlet.http.HttpServletRequest request's} locale.
  *
  * @author A-pZ
- * @version 3.0.0.BETA3
- * @since 2.3.15 ( Original source : Steven Benitez )
+ * @version 1.0.0
  */
-public class StrutsContext extends AbstractContext {
+public class StrutsContext extends AbstractContext implements IWebContext {
 
 	private final HttpServletRequest request;
 	private final HttpServletResponse response;
@@ -49,17 +50,13 @@ public class StrutsContext extends AbstractContext {
 	public static final String ACTION_VARIABLE_NAME = "action";
 
 	public StrutsContext(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext,
-			Object action) {
-
+			Locale locale,Map<String, Object> variables) {
+		
+		super(locale,variables);
 		this.request = request;
 		this.response = response;
 		this.servletContext = servletContext;
 
-		if (action instanceof LocaleProvider) {
-			setLocale(((LocaleProvider) action).getLocale());
-		}
-
-		setVariable(ACTION_VARIABLE_NAME, action);
 	}
 
 	public HttpServletRequest getRequest() {
@@ -77,4 +74,12 @@ public class StrutsContext extends AbstractContext {
 	public ServletContext getServletContext() {
 		return this.servletContext;
 	}
+	
+//	private static Map<String,Object> strutsSpecificVariables(final Map<String,?> variables) {
+//		final Map<String,Object> newVariables = new HashMap<String, Object>(20, 1.0f);
+//		newVariables = (Map<String, Object>) variableMapPrototype.clone();
+//        
+//		newVariables.putAll(variables);
+//        return newVariables;
+//	}
 }
