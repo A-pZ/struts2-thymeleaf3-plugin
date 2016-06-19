@@ -9,6 +9,10 @@ This project fork from [Struts2-thymeleaf-plugin](https://github.com/codework/st
 The examples below show you how to map an action's result to a Thymeleaf
 template, as well as how to reference the Struts2 action from within the template.
 
+## Sample and Blank app.
+
+https://github.com/A-pZ/struts2-thymeleaf3-sampleapp/
+
 ### Action Mapping
 
     <action name="home" class="com.example.HelloWorldAction">
