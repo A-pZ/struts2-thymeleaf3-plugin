@@ -84,7 +84,7 @@ or Struts2-convention-plugin annotation.
 
     @ParentPackage("struts-thymeleaf")
 
-## Thpe Conversion Errors support.
+## Type Conversion Errors support.
 
 This version support Struts2 Type conversion errors.
 sth:value can response String field, this plugin provided field-error stylesheet class and field value. 
