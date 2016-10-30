@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github.a-pz.struts.plugins.thymeleaf</groupId>
+	<groupId>com.github.a-pz</groupId>
 	<artifactId>struts2-thymeleaf3-plugin</artifactId>
-	<version>1.0.0-RELEASE</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Struts2-Thymeleaf3-plugin</name>
 	<url>https://github.com/A-pZ/struts2-thymeleaf3-plugin</url>
@@ -41,13 +41,13 @@
 
 	<distributionManagement>
 		<snapshotRepository>
-			<id>com.github.a-pz.struts.plugins.thymeleaf.struts2-thymeleaf3-plugin</id>
+			<id>com.github.a-pz</id>
 			<name>Nexus Snapshot Repository</name>
 			<uniqueVersion>false</uniqueVersion>
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
 		<repository>
-			<id>com.github.a-pz.struts.plugins.thymeleaf.struts2-thymeleaf3-plugin</id>
+			<id>com.github.a-pz</id>
 			<name>Nexus Release Repository</name>
 			<uniqueVersion>false</uniqueVersion>
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
@@ -131,11 +131,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
 						<goals>
-							<goal>jar</goal>
+							<goal>jar-no-fork</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -143,6 +144,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
