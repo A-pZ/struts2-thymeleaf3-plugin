@@ -2,12 +2,16 @@
 
 This project is Struts2-plugin for use [Thymeleaf](http://www.thymeleaf.org) templating engine version 3.0.0-RELEASE.
 
-This project fork [Struts2-thymeleaf-plugin](https://github.com/codework/struts2-thymeleaf-plugin), Steven Benitez.
+This project fork from [Struts2-thymeleaf-plugin](https://github.com/codework/struts2-thymeleaf-plugin), Steven Benitez.
 
 ## Example Usage
 
 The examples below show you how to map an action's result to a Thymeleaf
 template, as well as how to reference the Struts2 action from within the template.
+
+## Sample and Blank app.
+
+https://github.com/A-pZ/struts2-thymeleaf3-sampleapp/
 
 ### Action Mapping
 
@@ -48,8 +52,7 @@ The following template displays the message property of the action.
 
     <body>
 
-    <h1 th:text="#{home.welcome}">Welcome</h1>
-    <p th:text="${action.message}">This message is only seen during prototyping.</p>
+    <p th:text="${message}">This message is only seen during prototyping.</p>
 
     </body>
 
@@ -73,9 +76,35 @@ If you changed this values, overwriting your configulation files , struts.xml or
     <constant name="struts.thymeleaf.cacheTtlMillis" value="3600000"/>
     <constant name="struts.thymeleaf.templateEngineName" value="default"/>
 
-## Spring support & type conversion error handling support.
+And parent-package set.
 
-This plugin can provide accessibility for spring bean , and Struts2 type-conversion-error handling support.
+    <package name="your-app-default" abstract="true" extends="struts-thymeleaf">
+
+or Struts2-convention-plugin annotation.
+
+    @ParentPackage("struts-thymeleaf")
+
+## Type Conversion Errors support.
+
+This version support Struts2 Type conversion errors.
+sth:value can response String field, this plugin provided field-error stylesheet class and field value. 
+
+Code example :
+
+    <!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:th="http://www.thymeleaf.org"
+     xmlns:sth="http://serendip.thymeleaf">
+     ...
+     <input name="name" type="text" value=""
+      sth:value="${name}" error-css="field-error-color" />
+     ...
+    </html>
+
+## Spring framework support
+
+This plugin can provide accessibility for spring beans, and Struts2-Spring plugin support.
+If you use Struts2-Spring plugin and AspectJ, you need change struts.properties below.
 
 ### How to use Spring Bean
 
@@ -88,17 +117,6 @@ This plugin can provide accessibility for spring bean , and Struts2 type-convers
 use this namespace : sth
 this diarect supported value and errorclass such as thymeleaf spring support.
 
-Code example :
-
-    <!DOCTYPE html>
-    <html xmlns="http://www.w3.org/1999/xhtml"
-     xmlns:th="http://www.thymeleaf.org"
-     xmlns:sth="http://serendip.thymeleaf">
-     ...
-     <input name="name" type="text" value=""
-      sth:value="${name}" sth:errorclass="error-css" />
-     ...
-    </html>
 
 ## License
 

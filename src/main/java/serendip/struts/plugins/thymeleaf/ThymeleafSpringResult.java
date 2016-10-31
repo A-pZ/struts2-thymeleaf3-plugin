@@ -37,6 +37,7 @@ import com.opensymphony.xwork2.Result;
 import com.opensymphony.xwork2.inject.Inject;
 
 import serendip.struts.plugins.thymeleaf.spi.TemplateEngineProvider;
+import serendip.struts.plugins.thymeleaf.spring.SpringWebContext;
 
 /**
  * Renders a Thymeleaf-Spring template as the result of invoking a Struts action.
@@ -85,7 +86,7 @@ public class ThymeleafSpringResult implements Result {
 		Object action = actionInvocation.getAction();
 
 		// Action instance put to Thymeleaf context.
-		Map<String, Object> variables = bindStrutsContest(action);
+		Map<String, Object> variables = bindStrutsContext(action);
 
 		// Locale by Struts2-Action.
 		Locale locale = ((LocaleProvider) action).getLocale();
@@ -127,7 +128,7 @@ public class ThymeleafSpringResult implements Result {
 	 * @param action Action instance
 	 * @return ContextMap
 	 */
-	Map<String, Object> bindStrutsContest(Object action) {
+	Map<String, Object> bindStrutsContext(Object action) {
 		Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put(ACTION_VARIABLE_NAME, action);
 
