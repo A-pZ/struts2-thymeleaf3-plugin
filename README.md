@@ -1,5 +1,8 @@
 # Struts2-Thymeleaf3-plugin
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.a-pz/struts2-thymeleaf3-plugin/badge.png?style=plastic)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22struts2-thymeleaf3-plugin%22)
+
+
 This project is Struts2-plugin for use [Thymeleaf](http://www.thymeleaf.org) templating engine version 3.0.0-RELEASE.
 
 This project fork from [Struts2-thymeleaf-plugin](https://github.com/codework/struts2-thymeleaf-plugin), Steven Benitez.

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package serendip.struts.plugins.thymeleaf.diarect;
 
@@ -27,14 +27,14 @@ import com.opensymphony.xwork2.util.ValueStack;
 
 /**
  * Struts2 Field-error attribute processor.
- * 
+ *
  * This processor output field-error as css-class 'errorclass'.
- * 
+ *
  * @author A-pZ
  *
  */
 public class FieldErrorAttributeProcessor extends AbstractAttributeTagProcessor {
-	
+
 	public FieldErrorAttributeProcessor(final String dialectPrefix) {
 		super(
 	            TemplateMode.HTML, // This processor will apply only to HTML mode
@@ -46,12 +46,12 @@ public class FieldErrorAttributeProcessor extends AbstractAttributeTagProcessor 
 	            PRECEDENCE,        // Precedence (inside dialect's own precedence)
 	            true);             // Remove the matched attribute afterwards
 	}
-	
+
 	private static final String ATTR_NAME = "value";
     private static final int PRECEDENCE = 1010;
-	
-    
-    
+
+
+
 	/* (非 Javadoc)
 	 * @see org.thymeleaf.processor.element.AbstractAttributeTagProcessor#doProcess(org.thymeleaf.context.ITemplateContext, org.thymeleaf.model.IProcessableElementTag, org.thymeleaf.engine.AttributeName, java.lang.String, org.thymeleaf.processor.element.IElementTagStructureHandler)
 	 */
@@ -70,10 +70,10 @@ public class FieldErrorAttributeProcessor extends AbstractAttributeTagProcessor 
          * Parse the attribute value as a Thymeleaf Standard Expression
          */
         //final IStandardExpression expression = parser.parseExpression(context, attributeValue);
-        
+
         // get field name.
         String fieldname = tag.getAttributeValue(null, "name");
-        
+
         // get field value from struts2 ognl
         Object parameterValue = getFieldValue(fieldname);
         if ( parameterValue != null ) {
@@ -82,7 +82,7 @@ public class FieldErrorAttributeProcessor extends AbstractAttributeTagProcessor 
         if ( !hasFieldError(fieldname)) {
         	return;
         }
-        
+
         // add field-error css class.
         IAttribute cssClass = tag.getAttribute("class");
         String css = cssClass.getValue();
@@ -92,9 +92,9 @@ public class FieldErrorAttributeProcessor extends AbstractAttributeTagProcessor 
         	structureHandler.setAttribute("class", fieldErrorClass(tag) + " " + css);
         }
     }
-	
+
 	/**
-	 * If Struts2 has field-error for request parameter name , return true. 
+	 * If Struts2 has field-error for request parameter name , return true.
 	 * @param fieldname request-parameter name
 	 * @return if field-error has target field name, return true.
 	 */
@@ -102,7 +102,7 @@ public class FieldErrorAttributeProcessor extends AbstractAttributeTagProcessor 
 		if ( StringUtils.isEmpty(fieldname)) {
 			return false;
 		}
-		
+
 		Object action = ActionContext.getContext().getActionInvocation().getAction();
 		// check action instance 'ActionSupport'.
 		if (!(action instanceof ActionSupport)) {
@@ -114,10 +114,10 @@ public class FieldErrorAttributeProcessor extends AbstractAttributeTagProcessor 
 		if (fieldErrors == null || fieldErrors.size() == 0) {
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	/**
 	 * Return Strus2 field value.
 	 * @param fieldname fieldname
@@ -126,21 +126,21 @@ public class FieldErrorAttributeProcessor extends AbstractAttributeTagProcessor 
 	protected Object getFieldValue(String fieldname) {
 		ActionContext actionCtx = ActionContext.getContext();
 		ValueStack valueStack = actionCtx.getValueStack();
-		Object value = valueStack.findValue(fieldname, true);
-		
+		Object value = valueStack.findValue(fieldname, false);
+
 		String overwriteValue = getOverwriteValue(fieldname);
-		
+
 		if ( overwriteValue != null ) {
 			return overwriteValue;
 		}
 		return value;
 	}
-	
+
 	protected String fieldErrorClass(IProcessableElementTag tag) {
 		if ( tag.getAttribute("error-css") == null) {
 			return "field-error";
 		}
-		
+
 		String css = tag.getAttribute("error-css").getValue();
 		return css;
 	}
@@ -155,7 +155,7 @@ public class FieldErrorAttributeProcessor extends AbstractAttributeTagProcessor 
 		ActionContext ctx = ServletActionContext.getContext();
 		ValueStack stack = ctx.getValueStack();
 		Map<Object ,Object> overrideMap = stack.getExprOverrides();
-		
+
 		// If convertion error has not, do nothing.
 		if ( overrideMap == null || overrideMap.isEmpty()) {
 			return null;
