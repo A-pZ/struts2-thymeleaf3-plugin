@@ -15,4 +15,12 @@
             <result-type name="thymeleaf-spring" class="serendip.struts.plugins.thymeleaf.ThymeleafSpringResult"/>
         </result-types>
     </package>
+
+	<constant name="struts.thymeleaf.templateMode" value="HTML5" />
+	<constant name="struts.thymeleaf.encoding" value="UTF-8" />
+	<constant name="struts.thymeleaf.prefix" value="/WEB-INF/content/templates/" />
+	<constant name="struts.thymeleaf.suffix" value=".html" />
+	<constant name="struts.thymeleaf.cacheable" value="true" />
+	<constant name="struts.thymeleaf.cacheTtlMillis" value="3600000" />
+	<constant name="struts.thymeleaf.templateEngineName" value="default" />
 </struts>
