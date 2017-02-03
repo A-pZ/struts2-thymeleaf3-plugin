@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.a-pz</groupId>
 	<artifactId>struts2-thymeleaf3-plugin</artifactId>
-	<version>1.0.2-DEVELOP</version>
+	<version>1.0.2-RELEASE</version>
 	<packaging>jar</packaging>
 	<name>Struts2-Thymeleaf3-plugin</name>
 	<url>https://github.com/A-pZ/struts2-thymeleaf3-plugin</url>
