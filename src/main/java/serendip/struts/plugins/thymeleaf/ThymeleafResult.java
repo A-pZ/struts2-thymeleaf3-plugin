@@ -81,18 +81,18 @@ public class ThymeleafResult implements Result {
 		ServletContext servletContext = ServletActionContext.getServletContext();
 
 		Object action = actionInvocation.getAction();
-		
+
 		// Action instance put to Thymeleaf context.
 		Map<String, Object> variables = bindStrutsContext(action);
-		
+
 		Locale locale = null;
 		if (action instanceof LocaleProvider) {
 			locale = (((LocaleProvider) action).getLocale());
 		}
-		
+
 		StrutsContext context = new StrutsContext(request, response, servletContext, locale, variables);
 		//context.setVariables(variables);
-		
+
 		response.setContentType("text/html");
 		response.setCharacterEncoding(defaultEncoding);
 		templateEngine.process(templateName, context, response.getWriter());
@@ -115,17 +115,21 @@ public class ThymeleafResult implements Result {
 	/**
 	 * Binding Struts2 action and context, and field-errors list binding
 	 * "field".
-	 * 
+	 *
 	 * @param action
 	 *            Action instance
 	 * @return ContextMap
 	 */
 	Map<String, Object> bindStrutsContext(Object action) {
 		Map<String, Object> variables = new ConcurrentHashMap<String, Object>();
-		variables.put(ACTION_VARIABLE_NAME, action);
+		//variables.put(ACTION_VARIABLE_NAME, action);
 
 		if (action instanceof ActionSupport) {
 			ActionSupport actSupport = (ActionSupport) action;
+
+			variables.put("actionErrors", actSupport.getActionErrors());
+			variables.put("actionMessages", actSupport.getActionMessages());
+			variables.put("fieldErrors",actSupport.getFieldErrors());
 
 			// Struts2 field errors.( Map<fieldname , fielderrors>)
 			Map<String, List<String>> fieldErrors = actSupport.getFieldErrors();
