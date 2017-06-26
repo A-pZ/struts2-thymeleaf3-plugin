@@ -1,24 +1,9 @@
-/*
- * Copyright 2013 Steven Benitez.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package serendip.struts.plugins.thymeleaf;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +18,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.LocaleProvider;
 import com.opensymphony.xwork2.Result;
 import com.opensymphony.xwork2.inject.Inject;
+import com.opensymphony.xwork2.ognl.OgnlUtil;
 
 import serendip.struts.plugins.thymeleaf.spi.TemplateEngineProvider;
 
@@ -40,12 +26,13 @@ import serendip.struts.plugins.thymeleaf.spi.TemplateEngineProvider;
  * Renders a Thymeleaf template as the result of invoking a Struts action.
  *
  * @author A-pZ ( Original source : Steven Benitez )
- * @since 2.3.15
+ * @since 1.0.0
  */
 public class ThymeleafResult implements Result {
 	private String defaultEncoding = "UTF-8";
 	private TemplateEngineProvider templateEngineProvider;
 	private String templateName;
+	private OgnlUtil ognlUtil;
 
 	/**
 	 * The result parameter name to set the name of the template to.
@@ -91,7 +78,6 @@ public class ThymeleafResult implements Result {
 		}
 
 		StrutsContext context = new StrutsContext(request, response, servletContext, locale, variables);
-		//context.setVariables(variables);
 
 		response.setContentType("text/html");
 		response.setCharacterEncoding(defaultEncoding);
@@ -108,6 +94,11 @@ public class ThymeleafResult implements Result {
 		this.templateEngineProvider = templateEngineProvider;
 	}
 
+    @Inject
+    public void setOgnlUtil(OgnlUtil util) {
+        this.ognlUtil = util;
+    }
+
 	public void setTemplateName(String templateName) {
 		this.templateName = templateName;
 	}
@@ -121,20 +112,17 @@ public class ThymeleafResult implements Result {
 	 * @return ContextMap
 	 */
 	Map<String, Object> bindStrutsContext(Object action) {
-		Map<String, Object> variables = new ConcurrentHashMap<String, Object>();
-		//variables.put(ACTION_VARIABLE_NAME, action);
+		Map<String, Object> variables = new HashMap<String, Object>();
 
-		if (action instanceof ActionSupport) {
-			ActionSupport actSupport = (ActionSupport) action;
-
-			variables.put("actionErrors", actSupport.getActionErrors());
-			variables.put("actionMessages", actSupport.getActionMessages());
-			variables.put("fieldErrors",actSupport.getFieldErrors());
-
-			// Struts2 field errors.( Map<fieldname , fielderrors>)
-			Map<String, List<String>> fieldErrors = actSupport.getFieldErrors();
-			variables.put(FIELD_ERRORS_NAME, fieldErrors);
+		if ( !( action instanceof ActionSupport)) {
+			return variables;
 		}
+
+		ActionSupport actSupport = (ActionSupport) action;
+
+		// Struts2 field errors.( Map<fieldname , fielderrors>)
+		Map<String, List<String>> fieldErrors = actSupport.getFieldErrors();
+		variables.put(FIELD_ERRORS_NAME, fieldErrors);
 
 		return variables;
 	}
