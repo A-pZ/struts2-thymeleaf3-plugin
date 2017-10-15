@@ -63,7 +63,7 @@ public class DefaultTemplateEngineProvider implements TemplateEngineProvider {
 	 */
 	public void configure() {
 		ServletContext servletContext = ServletActionContext.getServletContext();
-		
+
 		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
 		templateResolver.setTemplateMode(templateMode);
 		templateResolver.setCharacterEncoding(characterEncoding);
@@ -73,7 +73,7 @@ public class DefaultTemplateEngineProvider implements TemplateEngineProvider {
 		templateResolver.setCacheTTLMs(cacheTtlMillis);
 
 		templateEngine.setTemplateResolver(templateResolver);
-		//templateEngine.setMessageResolver(new StrutsMessageResolver());
+		templateEngine.setMessageResolver(new StrutsMessageResolver());
 
 		// extension diarects.
 		FieldDialect fieldDialect = new FieldDialect(TemplateMode.HTML ,"sth");
