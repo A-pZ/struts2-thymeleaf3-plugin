@@ -25,6 +25,7 @@ import javax.servlet.ServletContext;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.Dispatcher;
 import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
@@ -73,7 +74,11 @@ public class DefaultTemplateEngineProvider implements TemplateEngineProvider {
 		templateResolver.setCacheTTLMs(cacheTtlMillis);
 
 		templateEngine.setTemplateResolver(templateResolver);
+		StrutsMessageResolver messageResolver = new StrutsMessageResolver();
 		templateEngine.setMessageResolver(new StrutsMessageResolver());
+		if (templateEngine instanceof SpringTemplateEngine) {
+			((SpringTemplateEngine) templateEngine).setMessageSource(messageResolver.getMessageSource());
+		}
 
 		// extension diarects.
 		FieldDialect fieldDialect = new FieldDialect(TemplateMode.HTML ,"sth");
