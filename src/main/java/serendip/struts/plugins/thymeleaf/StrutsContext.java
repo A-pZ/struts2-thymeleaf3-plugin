@@ -44,11 +44,6 @@ public class StrutsContext extends AbstractContext implements IWebContext {
 	private final HttpServletResponse response;
 	private final ServletContext servletContext;
 
-	/**
-	 * Name of the variable that contains the action.
-	 */
-	public static final String ACTION_VARIABLE_NAME = "action";
-
 	public StrutsContext(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext,
 			Locale locale,Map<String, Object> variables) {
 

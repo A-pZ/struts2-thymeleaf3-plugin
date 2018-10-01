@@ -43,14 +43,11 @@ public class ThymeleafResult implements Result {
 	 */
 	public static final String DEFAULT_PARAM = "templateName";
 
-	/** instance name of struts2-action */
-	public static final String ACTION_VARIABLE_NAME = "action";
-
 	/** field errors */
-	public static final String FIELD_ERRORS_NAME = "field";
+	private static final String FIELD_ERRORS_NAME = "field";
 
 	/** struts2 convertion errors fields and value */
-	public static final String OVERRIDES_NAME = "overrides";
+//	private static final String OVERRIDES_NAME = "overrides";
 
 	public ThymeleafResult() {
 	}

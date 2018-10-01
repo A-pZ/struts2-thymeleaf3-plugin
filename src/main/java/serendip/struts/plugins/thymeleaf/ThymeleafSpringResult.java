@@ -59,13 +59,10 @@ public class ThymeleafSpringResult implements Result {
 	public static final String DEFAULT_PARAM = "templateName";
 
 	/** instance name of struts2-action */
-	public static final String ACTION_VARIABLE_NAME = "action";
+	private static final String ACTION_VARIABLE_NAME = "action";
 
 	/** field errors */
-	public static final String FIELD_ERRORS_NAME ="field";
-
-	/** struts2 convertion errors fields and value */
-	public static final String OVERRIDES_NAME = "overrides";
+	private static final String FIELD_ERRORS_NAME ="field";
 
 	public ThymeleafSpringResult() {
 	}
@@ -80,8 +77,7 @@ public class ThymeleafSpringResult implements Result {
 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
-		ServletContext servletContext = ServletActionContext
-				.getServletContext();
+		ServletContext servletContext = ServletActionContext.getServletContext();
 
 		Object action = actionInvocation.getAction();
 
