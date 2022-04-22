@@ -57,7 +57,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<struts2.version>2.5.17</struts2.version>
+		<struts2.version>2.5.30</struts2.version>
 		<thymeleaf.version>3.0.9.RELEASE</thymeleaf.version>
 		<spring.version>5.0.7.RELEASE</spring.version>
 	</properties>
