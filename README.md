@@ -9,6 +9,8 @@ This project fork from [Struts2-thymeleaf-plugin](https://github.com/codework/st
 
 ## Release note and update notice.
 
+Version 6.0.0 : Update Struts 6.0.0 and JDK 11
+
 Version 1.2.0 : Message Resource Bigfix #29 was resolved and Strus2 Version updated 2.5.17. This plugin version only support Struts2.5.17 or later.
 
 If you use bigfix and Struts2 version before 2.5.16, use @psyuhen forked this plugin version 1.0.5.1( https://github.com/psyuhen/struts2-thymeleaf3-plugin/tree/develop/1.0.5.1 ).
