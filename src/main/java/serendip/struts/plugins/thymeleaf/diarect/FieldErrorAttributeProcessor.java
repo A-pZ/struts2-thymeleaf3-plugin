@@ -6,9 +6,10 @@ package serendip.struts.plugins.thymeleaf.diarect;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.util.CollectionUtils;
 import org.thymeleaf.IEngineConfiguration;
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.engine.AttributeName;
@@ -111,7 +112,11 @@ public class FieldErrorAttributeProcessor extends AbstractAttributeTagProcessor 
 
 		ActionSupport asupport = (ActionSupport) action;
 		Map<String, List<String>> fieldErrors = asupport.getFieldErrors();
-		if (fieldErrors == null || fieldErrors.size() == 0) {
+		if (CollectionUtils.isEmpty(fieldErrors)) {
+			return false;
+		}
+		List<String> targetFieldErrors = fieldErrors.get(fieldname);
+		if (CollectionUtils.isEmpty(targetFieldErrors)) {
 			return false;
 		}
 
@@ -152,7 +157,7 @@ public class FieldErrorAttributeProcessor extends AbstractAttributeTagProcessor 
 	 * @return request-parameter-value(if convertion error occurs,return from struts2 , not else thymeleaf.)
 	 */
 	protected String getOverwriteValue(String fieldname) {
-		ActionContext ctx = ServletActionContext.getContext();
+		ActionContext ctx = ServletActionContext.getActionContext();
 		ValueStack stack = ctx.getValueStack();
 		Map<Object ,Object> overrideMap = stack.getExprOverrides();
 

@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.a-pz</groupId>
 	<artifactId>struts2-thymeleaf3-plugin</artifactId>
-	<version>1.0.1-RELEASE</version>
+	<version>6.0.0-RELEASE</version>
 	<packaging>jar</packaging>
 	<name>Struts2-Thymeleaf3-plugin</name>
 	<url>https://github.com/A-pZ/struts2-thymeleaf3-plugin</url>
-	<description>Struts2-Thymeleaf3-plugin for Struts2.5.x. This plugin is unofficial plugin.</description>
+	<description>Struts2-Thymeleaf3-plugin for Struts6 This plugin is unofficial plugin.</description>
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -24,9 +24,9 @@
 			<id>A-pZ</id>
 			<name>koji azuma</name>
 			<email>g.alpha.pz@gmail.com</email>
-			<url>http://www.h3.dion.ne.jp/~alpha-pz/</url>
+			<url>https://github.com/A-pZ</url>
 			<organization>Capybara</organization>
-			<organizationUrl>http://www.h3.dion.ne.jp/~alpha-pz/</organizationUrl>
+			<organizationUrl>https://github.com/A-pZ</organizationUrl>
 			<roles>
 				<role>architect</role>
 				<role>developer</role>
@@ -39,27 +39,11 @@
 		<url>https://github.com/A-pZ/struts2-thymeleaf3-plugin/issues</url>
 	</issueManagement>
 
-	<distributionManagement>
-		<snapshotRepository>
-			<id>com.github.a-pz</id>
-			<name>Nexus Snapshot Repository</name>
-			<uniqueVersion>false</uniqueVersion>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>com.github.a-pz</id>
-			<name>Nexus Release Repository</name>
-			<uniqueVersion>false</uniqueVersion>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
-            </url>
-		</repository>
-	</distributionManagement>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<struts2.version>2.5.5</struts2.version>
-		<thymeleaf.version>3.0.2.RELEASE</thymeleaf.version>
-		<spring.version>4.2.6.RELEASE</spring.version>
+		<struts2.version>6.0.0</struts2.version>
+		<thymeleaf.version>3.0.12.RELEASE</thymeleaf.version>
+		<spring.version>5.3.22</spring.version>
 	</properties>
 	<repositories>
 		<repository>
@@ -72,6 +56,13 @@
 			<url>https://repository.apache.org/content/groups/snapshots/</url>
 		</repository>
 	</repositories>
+	<distributionManagement>
+	    <repository>
+	        <id>github</id>
+	        <name>GitHub Apache Maven Packages</name>
+	        <url>https://maven.pkg.github.com/a-pz/struts2-thymeleaf3-plugin</url>
+	    </repository>
+	</distributionManagement>
 	<dependencies>
 
 		<dependency>
@@ -106,6 +97,17 @@
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-text</artifactId>
+		    <version>1.9</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -116,15 +118,15 @@
 					<fork>true</fork>
 					<meminitial>256m</meminitial>
 					<maxmem>512m</maxmem>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>11</source>
+					<target>11</target>
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
+				<version>3.2.1</version>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -137,7 +139,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
+				<version>3.4.1</version>
 				<executions>
 					<execution>
 						<id>attach-javadocs</id>
@@ -157,31 +159,6 @@
 					<jdkName>1.8</jdkName>
 					<jdkLevel>1.8</jdkLevel>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.7</version>
-				<extensions>true</extensions>
-				<configuration>
-					<serverId>ossrh</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>true</autoReleaseAfterClose>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.5</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>

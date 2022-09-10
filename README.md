@@ -1,11 +1,19 @@
 # Struts2-Thymeleaf3-plugin
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.a-pz/struts2-thymeleaf3-plugin/badge.png?style=plastic)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22struts2-thymeleaf3-plugin%22)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.a-pz/struts2-thymeleaf3-plugin/badge.png?style=plastic)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22struts2-thymeleaf3-plugin%22)
 
 
 This project is Struts2-plugin for use [Thymeleaf](http://www.thymeleaf.org) templating engine version 3.0.0-RELEASE.
 
 This project fork from [Struts2-thymeleaf-plugin](https://github.com/codework/struts2-thymeleaf-plugin), Steven Benitez.
+
+## Release note and update notice.
+
+Version 6.0.0 : Update Struts 6.0.0 and JDK 11
+
+Version 1.2.0 : Message Resource Bigfix #29 was resolved and Strus2 Version updated 2.5.17. This plugin version only support Struts2.5.17 or later.
+
+If you use bigfix and Struts2 version before 2.5.16, use @psyuhen forked this plugin version 1.0.5.1( https://github.com/psyuhen/struts2-thymeleaf3-plugin/tree/develop/1.0.5.1 ).
 
 ## Example Usage
 
@@ -63,13 +71,13 @@ The following template displays the message property of the action.
 
 ## Message Resolution
 
-This plugin will cause Thymeleaf to look in the Struts2 i18n resource bundles
-to resolve messages.
+This plugin will cause Thymeleaf to look in the Struts2 i18n resource bundles to resolve messages.
+Since version 1.2.0 resolve message resource problem, Original source is @psyuhen ( https://github.com/psyuhen/struts2-thymeleaf3-plugin/tree/develop/1.0.5.1 )
 
 ## Configuration
 
-The following reflects the default settings (struts.xml). 
-If you changed this values, overwriting your configulation files , struts.xml or struts.properties. 
+The following reflects the default settings (struts.xml).
+If you changed this values, overwriting your configulation files , struts.xml or struts.properties.
 
     <constant name="struts.thymeleaf.templateMode" value="HTML5"/>
     <constant name="struts.thymeleaf.encoding" value="UTF-8"/>
@@ -90,7 +98,7 @@ or Struts2-convention-plugin annotation.
 ## Type Conversion Errors support.
 
 This version support Struts2 Type conversion errors.
-sth:value can response String field, this plugin provided field-error stylesheet class and field value. 
+sth:value can response String field, this plugin provided field-error stylesheet class and field value.
 
 Code example :
 

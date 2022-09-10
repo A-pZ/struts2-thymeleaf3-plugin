@@ -92,13 +92,10 @@ public class ThymeleafSpringResult implements Result {
 		Locale locale = ((LocaleProvider) action).getLocale();
 
 		// Spring-ApplicationContext.
-		//ApplicationContext appctx = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
 		ApplicationContext appctx =
 				(ApplicationContext)servletContext.getAttribute( WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
 
 		// Use SpringWebContext( by Thymeleaf-spring plugin. )
-		//SpringContextUtils.getApplicationContext(appctx);
-		
 		SpringWebContext context = new SpringWebContext(request, response,
 				servletContext, locale, variables, appctx);
 

@@ -51,7 +51,7 @@ public class StrutsContext extends AbstractContext implements IWebContext {
 
 	public StrutsContext(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext,
 			Locale locale,Map<String, Object> variables) {
-		
+
 		super(locale,variables);
 		this.request = request;
 		this.response = response;
@@ -74,12 +74,4 @@ public class StrutsContext extends AbstractContext implements IWebContext {
 	public ServletContext getServletContext() {
 		return this.servletContext;
 	}
-	
-//	private static Map<String,Object> strutsSpecificVariables(final Map<String,?> variables) {
-//		final Map<String,Object> newVariables = new HashMap<String, Object>(20, 1.0f);
-//		newVariables = (Map<String, Object>) variableMapPrototype.clone();
-//        
-//		newVariables.putAll(variables);
-//        return newVariables;
-//	}
 }
