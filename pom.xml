@@ -39,22 +39,6 @@
 		<url>https://github.com/A-pZ/struts2-thymeleaf3-plugin/issues</url>
 	</issueManagement>
 
-	<distributionManagement>
-		<snapshotRepository>
-			<id>com.github.a-pz</id>
-			<name>Nexus Snapshot Repository</name>
-			<uniqueVersion>false</uniqueVersion>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>com.github.a-pz</id>
-			<name>Nexus Release Repository</name>
-			<uniqueVersion>false</uniqueVersion>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
-            </url>
-		</repository>
-	</distributionManagement>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<struts2.version>6.0.0</struts2.version>
@@ -72,6 +56,13 @@
 			<url>https://repository.apache.org/content/groups/snapshots/</url>
 		</repository>
 	</repositories>
+	<distributionManagement>
+	    <repository>
+	        <id>github</id>
+	        <name>GitHub Apache Maven Packages</name>
+	        <url>https://maven.pkg.github.com/a-pz/struts2-thymeleaf3-plugin</url>
+	    </repository>
+	</distributionManagement>
 	<dependencies>
 
 		<dependency>
