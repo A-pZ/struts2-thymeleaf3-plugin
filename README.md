@@ -1,5 +1,7 @@
 # Struts2-Thymeleaf3-plugin
 
+[![Java CI](https://github.com/A-pZ/struts2-thymeleaf3-plugin/actions/workflows/maven.yml/badge.svg)](https://github.com/A-pZ/struts2-thymeleaf3-plugin/actions/workflows/maven.yml)
+
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.a-pz/struts2-thymeleaf3-plugin/badge.png?style=plastic)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22struts2-thymeleaf3-plugin%22)
 
 
