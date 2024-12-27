@@ -4,15 +4,14 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
-    <bean type="serendip.struts.plugins.thymeleaf.spi.TemplateEngineProvider" name="default" class="serendip.struts.plugins.thymeleaf.spi.DefaultTemplateEngineProvider" />
+    <bean type="com.github.apz.struts.plugins.thymeleaf.spi.TemplateEngineProvider" name="default" class="com.github.apz.struts.plugins.thymeleaf.spi.DefaultTemplateEngineProvider" />
 
-	<bean type="org.thymeleaf.TemplateEngine" name="old" class="org.thymeleaf.TemplateEngine" />
-    <bean type="org.thymeleaf.TemplateEngine" name="default" class="org.thymeleaf.spring4.SpringTemplateEngine" />
+    <bean type="org.thymeleaf.TemplateEngine" name="default" class="org.thymeleaf.spring5.SpringTemplateEngine" />
 
 	<package name="struts-thymeleaf" extends="struts-default">
         <result-types>
-            <result-type name="thymeleaf" class="serendip.struts.plugins.thymeleaf.ThymeleafResult"/>
-            <result-type name="thymeleaf-spring" class="serendip.struts.plugins.thymeleaf.ThymeleafSpringResult"/>
+            <result-type name="thymeleaf" class="com.github.apz.struts.plugins.thymeleaf.ThymeleafResult"/>
+            <result-type name="thymeleaf-spring" class="com.github.apz.struts.plugins.thymeleaf.ThymeleafSpringResult"/>
         </result-types>
     </package>
 
