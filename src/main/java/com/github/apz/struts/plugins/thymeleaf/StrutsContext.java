@@ -15,10 +15,6 @@
  */
 package com.github.apz.struts.plugins.thymeleaf;
 
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.thymeleaf.context.AbstractContext;
 import org.thymeleaf.context.IWebContext;
 import org.thymeleaf.web.IWebExchange;
@@ -36,42 +32,21 @@ import java.util.Map;
  * {@link jakarta.servlet.http.HttpServletRequest request's} locale.
  *
  * @author A-pZ
- * @version 1.0.0
+ * @version 7.0.0| Thymeleaf 3.1.x
  */
 public class StrutsContext extends AbstractContext implements IWebContext {
 
-	private final HttpServletRequest request;
-	private final HttpServletResponse response;
-	private final ServletContext servletContext;
+	private final IWebExchange webExchange;
 
-	public StrutsContext(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext,
+	public StrutsContext(IWebExchange webExchange,
 			Locale locale,Map<String, Object> variables) {
 
 		super(locale,variables);
-		this.request = request;
-		this.response = response;
-		this.servletContext = servletContext;
-
-	}
-
-	public HttpServletRequest getRequest() {
-		return this.request;
-	}
-
-	public HttpSession getSession() {
-		return this.request.getSession(false);
-	}
-
-	public HttpServletResponse getResponse() {
-		return this.response;
-	}
-
-	public ServletContext getServletContext() {
-		return this.servletContext;
+		this.webExchange = webExchange;
 	}
 
 	@Override
 	public IWebExchange getExchange() {
-		return null;
+		return this.webExchange;
 	}
 }

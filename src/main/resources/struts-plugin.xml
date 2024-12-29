@@ -6,7 +6,7 @@
 <struts>
     <bean type="com.github.apz.struts.plugins.thymeleaf.spi.TemplateEngineProvider" name="default" class="com.github.apz.struts.plugins.thymeleaf.spi.DefaultTemplateEngineProvider" />
 
-    <bean type="org.thymeleaf.TemplateEngine" name="default" class="org.thymeleaf.spring5.SpringTemplateEngine" />
+    <bean type="org.thymeleaf.TemplateEngine" name="default" class="org.thymeleaf.spring6.SpringTemplateEngine" />
 
 	<package name="struts-thymeleaf" extends="struts-default">
         <result-types>

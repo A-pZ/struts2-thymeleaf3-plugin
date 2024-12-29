@@ -21,13 +21,14 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.Dispatcher;
 import org.apache.struts2.inject.Container;
 import org.apache.struts2.inject.Inject;
+import org.springframework.context.ApplicationContext;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.messageresolver.StandardMessageResolver;
-import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.spring5.messageresolver.SpringMessageResolver;
+import org.thymeleaf.spring6.SpringTemplateEngine;
+import org.thymeleaf.spring6.messageresolver.SpringMessageResolver;
+import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.WebApplicationTemplateResolver;
-import org.thymeleaf.web.IWebApplication;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.util.Collections;
@@ -64,6 +65,7 @@ public class DefaultTemplateEngineProvider implements TemplateEngineProvider {
 	 * sensible defaults if values are not provided.
 	 */
 	public void configure() {
+
 		WebApplicationTemplateResolver templateResolver = getWebApplicationTemplateResolver();
 		templateEngine.setTemplateResolver(templateResolver);
 		if (templateEngine instanceof SpringTemplateEngine) {
@@ -79,11 +81,32 @@ public class DefaultTemplateEngineProvider implements TemplateEngineProvider {
 	}
 
 	private WebApplicationTemplateResolver getWebApplicationTemplateResolver() {
+//		if ( templateEngineName.equals("spring")) {
+//
+//		} else {
+//
+//		}
+
 		ServletContext servletContext = ServletActionContext.getServletContext();
-		IWebApplication iWebApplication = JakartaServletWebApplication.buildApplication(servletContext);
+		JakartaServletWebApplication iWebApplication = JakartaServletWebApplication.buildApplication(servletContext);
 		WebApplicationTemplateResolver templateResolver =
 				new WebApplicationTemplateResolver(iWebApplication);
 
+		templateResolver.setTemplateMode(templateMode);
+		templateResolver.setCharacterEncoding(characterEncoding);
+		templateResolver.setPrefix(prefix);
+		templateResolver.setSuffix(suffix);
+		templateResolver.setCacheable(cacheable);
+		templateResolver.setCacheTTLMs(cacheTtlMillis);
+		return templateResolver;
+	}
+
+	private SpringResourceTemplateResolver getSpringApplicationTemplateResolver(){
+		ServletContext servletContext = ServletActionContext.getServletContext();
+		JakartaServletWebApplication iWebApplication = JakartaServletWebApplication.buildApplication(servletContext);
+		ApplicationContext applicationContext = (ApplicationContext) servletContext.getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
+		SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+		templateResolver.setApplicationContext(applicationContext);
 		templateResolver.setTemplateMode(templateMode);
 		templateResolver.setCharacterEncoding(characterEncoding);
 		templateResolver.setPrefix(prefix);

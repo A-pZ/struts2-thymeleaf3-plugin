@@ -13,6 +13,8 @@ import org.apache.struts2.locale.LocaleProvider;
 import org.apache.struts2.ognl.OgnlUtil;
 import org.apache.struts2.result.Result;
 import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.web.IWebExchange;
+import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +48,7 @@ public class ThymeleafResult implements Result {
 	/** field errors */
 	public static final String FIELD_ERRORS_NAME = "field";
 
-	/** struts2 convertion errors fields and value */
+	/** struts2 conversion errors fields and value */
 	public static final String OVERRIDES_NAME = "overrides";
 
 	public ThymeleafResult() {
@@ -60,10 +62,6 @@ public class ThymeleafResult implements Result {
 	public void execute(ActionInvocation actionInvocation) throws Exception {
 		TemplateEngine templateEngine = templateEngineProvider.get();
 
-		HttpServletRequest request = ServletActionContext.getRequest();
-		HttpServletResponse response = ServletActionContext.getResponse();
-		ServletContext servletContext = ServletActionContext.getServletContext();
-
 		Object action = actionInvocation.getAction();
 
 		// Action instance put to Thymeleaf context.
@@ -74,7 +72,8 @@ public class ThymeleafResult implements Result {
 			locale = (((LocaleProvider) action).getLocale());
 		}
 
-		StrutsContext context = new StrutsContext(request, response, servletContext, locale, variables);
+		StrutsContext context = new StrutsContext(getWebExchange(), locale, variables);
+		HttpServletResponse response = ServletActionContext.getResponse();
 
 		response.setContentType("text/html");
 		response.setCharacterEncoding(defaultEncoding);
@@ -122,5 +121,13 @@ public class ThymeleafResult implements Result {
 		variables.put(FIELD_ERRORS_NAME, fieldErrors);
 
 		return variables;
+	}
+
+	private IWebExchange getWebExchange() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		ServletContext servletContext = ServletActionContext.getServletContext();
+		return JakartaServletWebApplication.buildApplication(servletContext)
+				.buildExchange(request, response);
 	}
 }

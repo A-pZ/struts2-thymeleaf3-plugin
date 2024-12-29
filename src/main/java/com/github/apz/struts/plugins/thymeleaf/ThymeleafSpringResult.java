@@ -15,29 +15,26 @@
  */
 package com.github.apz.struts.plugins.thymeleaf;
 
+import com.github.apz.struts.plugins.thymeleaf.spi.TemplateEngineProvider;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.struts2.ActionInvocation;
+import org.apache.struts2.ActionSupport;
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.StrutsConstants;
+import org.apache.struts2.inject.Inject;
+import org.apache.struts2.locale.LocaleProvider;
+import org.apache.struts2.result.Result;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
+import org.thymeleaf.web.IWebExchange;
+import org.thymeleaf.web.servlet.JakartaServletWebApplication;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.StrutsConstants;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.WebApplicationContext;
-import org.thymeleaf.TemplateEngine;
-
-import org.apache.struts2.ActionInvocation;
-import org.apache.struts2.ActionSupport;
-import org.apache.struts2.locale.LocaleProvider;
-import org.apache.struts2.result.Result;
-import org.apache.struts2.inject.Inject;
-
-import com.github.apz.struts.plugins.thymeleaf.spi.TemplateEngineProvider;
-import com.github.apz.struts.plugins.thymeleaf.spring.SpringWebContext;
 
 /**
  * Renders a Thymeleaf-Spring template as the result of invoking a Struts action.
@@ -78,10 +75,7 @@ public class ThymeleafSpringResult implements Result {
 	public void execute(ActionInvocation actionInvocation) throws Exception {
 		TemplateEngine templateEngine = templateEngineProvider.get();
 
-		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpServletResponse response = ServletActionContext.getResponse();
-		ServletContext servletContext = ServletActionContext
-				.getServletContext();
 
 		Object action = actionInvocation.getAction();
 
@@ -91,18 +85,12 @@ public class ThymeleafSpringResult implements Result {
 		// Locale by Struts2-Action.
 		Locale locale = ((LocaleProvider) action).getLocale();
 
-		// Spring-ApplicationContext.
-		ApplicationContext applicationContext =
-				(ApplicationContext)servletContext.getAttribute( WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
-
-		// Use SpringWebContext( by Thymeleaf-spring plugin. )
-		SpringWebContext context = new SpringWebContext(request, response,
-				servletContext, locale, variables, applicationContext);
+		WebContext webContext = new WebContext(getWebExchange(), locale, variables);
 
 		// response to TemplateEngine.
 		response.setContentType("text/html");
 		response.setCharacterEncoding(defaultEncoding);
-		templateEngine.process(templateName, context, response.getWriter());
+		templateEngine.process(templateName, webContext, response.getWriter());
 	}
 
 	@Inject(StrutsConstants.STRUTS_I18N_ENCODING)
@@ -138,5 +126,13 @@ public class ThymeleafSpringResult implements Result {
 		}
 
 		return variables;
+	}
+
+	private IWebExchange getWebExchange() {
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		ServletContext servletContext = ServletActionContext.getServletContext();
+		return JakartaServletWebApplication.buildApplication(servletContext)
+				.buildExchange(request, response);
 	}
 }
